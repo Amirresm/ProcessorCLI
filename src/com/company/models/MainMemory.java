@@ -6,13 +6,13 @@ import java.util.Map;
 public class MainMemory {
     final static int mainMemBits = 16;
 
-    Map<String, String> memoryMap = new HashMap<>();
-    String address;
-    boolean memReadSignal;
-    boolean memWriteSignal;
+    private Map<String, String> memoryMap = new HashMap<>();
+    private String address;
+    private boolean memReadSignal;
+    private boolean memWriteSignal;
 
     public MainMemory() {
-        int memSize = (int)Math.pow(2, 16);
+        int memSize = (int) Math.pow(2, mainMemBits);
         for (int i = 0; i < memSize; i++) {
             String key = String.format("%" + 16 + "s", Integer.toBinaryString(i)).replace(' ', '0');
             memoryMap.put(key, "00000000000000000000000000000000");
@@ -26,11 +26,13 @@ public class MainMemory {
     }
 
     public void writeData(String data) {
-
+        if (memWriteSignal && data.length() == 32)
+            memoryMap.replace(address, data);
     }
 
     public String readData() {
-        String result = "";
-        return result;
+        if (memReadSignal)
+            return memoryMap.get(address);
+        else return "";
     }
 }

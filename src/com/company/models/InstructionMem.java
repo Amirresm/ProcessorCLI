@@ -4,7 +4,7 @@ import java.util.*;
 
 public class InstructionMem {
     final static int bits = 16;
-    Map<String, String> instructionMemory = new HashMap<>();
+    private Map<String, String> instructionMemory = new HashMap<>();
 
     public String getInstruction(String pc) {
         return instructionMemory.get(pc);

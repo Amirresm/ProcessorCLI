@@ -4,12 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterFile {
-    Map<String, String> registerMemory = new HashMap<>();
+    private Map<String, String> registerMemory = new HashMap<>();
 
-    String readAddr1;
-    String readAddr2;
-    String writeAddr;
-    boolean regWrite;
+    private String readAddr1;
+    private String readAddr2;
+    private String writeAddr;
+    private boolean regWrite;
 
     public RegisterFile() {
         registerMemory.put("0000", "00000000000000000000000000000000");
@@ -46,7 +46,7 @@ public class RegisterFile {
     }
 
     public void write(String registerWriteData) {
-        if (regWrite)
+        if (regWrite && registerWriteData.length() == 32)
             registerMemory.replace(writeAddr, registerWriteData);
     }
 }
